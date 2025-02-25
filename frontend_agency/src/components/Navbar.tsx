@@ -25,8 +25,8 @@ const Navbar = () => {
         scrolled ? 'py-4' : 'py-6'
       }`}
     >
-      <div className="backdrop-blur-md bg-white/10 border border-white/10 rounded-2xl w-[95vw] max-w-2xl">
-        <div className="px-4 sm:px-6">
+      <div className="backdrop-blur-md bg-white/10 border border-white/10 rounded-2xl w-[90vw] max-w-6xl">
+        <div className="px-6 sm:px-8">
           <div className="flex items-center justify-between h-16">
             <motion.div
               initial={{ opacity: 0 }}
