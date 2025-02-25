@@ -2,6 +2,8 @@ import Navbar from './components/Navbar';
 import Hero from './components/Herosection';
 import CardSpotlight from './components/Pricing';
 import  Footer  from './components/Footer';
+import PreviousWork from './components/PreviousWork';
+import TechStack from './components/TechStack';
 
 
 function App() {
@@ -10,7 +12,10 @@ function App() {
       <Navbar />
       <Hero />
       <CardSpotlight/>
-      <Footer/>
+      <PreviousWork/>
+      <TechStack/>
+        <Footer/>
+
     </div>
   );
 }
