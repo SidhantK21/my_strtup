@@ -1,7 +1,7 @@
 import { motion, useAnimationControls } from 'framer-motion';
 import { useEffect } from 'react';
 
-const Hero = () => {
+export const Hero = () => {
   const controls = useAnimationControls();
 
   useEffect(() => {
@@ -135,5 +135,3 @@ const Hero = () => {
     </div>
   );
 };
-
-export default Hero;

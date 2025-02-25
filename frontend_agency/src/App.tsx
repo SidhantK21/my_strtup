@@ -1,5 +1,5 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Herosection';
+import {Navbar} from './components/Navbar';
+import {Hero} from './components/Herosection';
 import { Offerings } from './components/Offerings';
 import { Contact } from './components/Contact';
 import { Pricing } from './components/Pricing';
