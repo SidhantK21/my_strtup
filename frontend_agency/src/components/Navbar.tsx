@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
-const Navbar = () => {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -92,5 +92,3 @@ const Navbar = () => {
     </motion.nav>
   );
 };
-
-export default Navbar;
