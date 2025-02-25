@@ -10,13 +10,13 @@ import TechStack from './components/TechStack';
 function App() {
   return (
     <div className="bg-black min-h-screen">
-        <Navbar />
+      <Navbar />
       <Hero />
-    
-      <PreviousWork />
-      <TechStack />
-      
       <Offerings />
+    
+      <TechStack />
+      <PreviousWork />
+      
       <Contact />
       <Pricing />
       <Footer />

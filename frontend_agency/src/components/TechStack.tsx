@@ -14,11 +14,10 @@ const Technology = ({ icon: Icon, name, description, color }: TechnologyProps) =
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      whileHover={{ scale: 1.05 }}
       className="relative group"
     >
       <div className="bg-black/40 backdrop-blur-xl rounded-xl p-6 border border-white/10 h-full">
-        <div className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+        <div className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center mb-4 `}>
           <Icon className="w-6 h-6 text-white" />
         </div>
         <h3 className="text-xl font-semibold text-white mb-2">{name}</h3>
