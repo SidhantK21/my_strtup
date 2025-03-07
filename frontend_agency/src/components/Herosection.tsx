@@ -21,22 +21,22 @@ export const Hero = () => {
   }, [controls]);
 
   return (
-    <div id='home' className="min-h-screen bg-black flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-44 items-center">
+    <div id='home' className="min-h-[100dvh] bg-black flex items-center pt-20 sm:pt-24 lg:pt-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-44 items-center">
           {/* Left Column - Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="space-y-12"
+            className="space-y-8 sm:space-y-12 text-center lg:text-left"
           >
             <div className="space-y-4">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-gray-400 uppercase tracking-widest text-sm font-medium"
+                className="text-gray-400 uppercase tracking-widest text-xs sm:text-sm font-medium inline-block"
               >
                 Digital Innovation Studio
               </motion.span>
@@ -44,7 +44,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-6xl md:text-8xl font-bold tracking-tight leading-none relative"
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-none relative"
               >
                 <motion.div
                   animate={controls}
@@ -58,12 +58,11 @@ export const Hero = () => {
                     display: "inline-block",
                     position: "relative",
                     paddingBottom: "0.1em",
-                    paddingRight:"0.1em"
+                    paddingRight: "0.1em"
                   }}
-                  className=''
+                  className="whitespace-nowrap"
                 >
                   Tridenity
-                  
                 </motion.div>
               </motion.h1>
             </div>
@@ -72,7 +71,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-gray-400 text-lg md:text-xl max-w-lg leading-relaxed"
+              className="text-gray-400 text-base sm:text-lg md:text-xl max-w-lg leading-relaxed mx-auto lg:mx-0"
             >
               When AI Meets Creativity—Crafting Digital Experiences Beyond Imagination.
             </motion.p>
@@ -81,29 +80,29 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex gap-6 items-center"
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center lg:justify-start"
             >
               <a
                 href="#contact"
-                className="inline-block bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 hover:shadow-lg hover:shadow-white/10"
+                className="inline-block bg-white text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 hover:shadow-lg hover:shadow-white/10 text-sm sm:text-base w-full sm:w-auto text-center"
               >
                 Start Your Journey
               </a>
               <a
                 href="#portfolio"
-                className="inline-block text-white hover:text-gray-300 transition-colors duration-200 font-medium"
+                className="inline-block text-white hover:text-gray-300 transition-colors duration-200 font-medium text-sm sm:text-base"
               >
                 View Our Work →
               </a>
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Image - Hidden on mobile screens, visible on lg screens and up */}
+          {/* Right Column - Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative h-[600px] rounded-2xl overflow-hidden hidden lg:block"
+            className="relative h-[300px] sm:h-[400px] lg:h-[600px] rounded-2xl overflow-hidden mt-8 lg:mt-0"
           >
             <motion.div
               initial={{ scale: 1.2 }}

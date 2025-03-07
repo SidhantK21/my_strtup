@@ -1,50 +1,47 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import { motion, useAnimation, useMotionValue, PanInfo } from 'framer-motion';
 import { ExternalLink, Code, Palette, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface WorkItem {
   title: string;
   description: string;
   image: string;
+  link: string;
   tags: string[];
   icon: 'code' | 'design' | 'link';
 }
 
-// Expanded work items for continuous sliding
 const workItems: WorkItem[] = [
   {
-    title: "E-Commerce Platform",
-    description: "A modern e-commerce solution with real-time inventory management",
-    image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?auto=format&fit=crop&q=80&w=800&h=600",
-    tags: ["React", "Node.js", "MongoDB"],
+    title: "Academy Learning Platform",
+    description: "An interactive educational platform for modern learning experiences",
+    image: "https://academymanish.netlify.app/",
+    link: "https://academymanish.netlify.app/",
+    tags: ["React", "Tailwind", "Education"],
     icon: "code"
   },
   {
-    title: "Portfolio Website",
-    description: "Minimalist portfolio for a professional photographer",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800&h=600",
-    tags: ["Design", "UI/UX", "Animation"],
+    title: "Sutlej Industrial Corp",
+    description: "Professional industrial corporation website with modern design",
+    image: "https://www.sutlejindustrialcorp.com/",
+    link: "https://www.sutlejindustrialcorp.com/",
+    tags: ["Corporate", "UI/UX", "Industry"],
     icon: "design"
   },
   {
-    title: "Analytics Dashboard",
-    description: "Real-time data visualization and analytics platform",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=600",
-    tags: ["Dashboard", "Analytics", "React"],
-    icon: "link"
-  },
-  {
-    title: "Mobile App",
-    description: "Cross-platform mobile application for fitness tracking",
-    image: "https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&q=80&w=800&h=600",
-    tags: ["React Native", "Firebase", "UX"],
+    title: "SIH Project",
+    description: "Smart India Hackathon project showcasing innovation",
+    image: "https://sih-project-two.vercel.app/",
+    link: "https://sih-project-two.vercel.app/",
+    tags: ["React", "Innovation", "Hackathon"],
     icon: "code"
   },
   {
-    title: "AI Platform",
-    description: "Machine learning platform for data analysis",
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=800&h=600",
-    tags: ["Python", "TensorFlow", "AWS"],
+    title: "PDF Summarizer",
+    description: "AI-powered PDF summarization tool for efficient document processing",
+    image: "https://pdfsummarizer-rust.vercel.app/",
+    link: "https://pdfsummarizer-rust.vercel.app/",
+    tags: ["AI", "PDF", "Tools"],
     icon: "link"
   }
 ];
@@ -67,11 +64,11 @@ const PreviousWork: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
   const x = useMotionValue(0);
+  const autoPlayTimeoutRef = useRef<number | null>(null);
 
   // Create an infinite array by duplicating items
   const infiniteItems = [...workItems, ...workItems, ...workItems];
 
-  // Update container width on mount and resize
   useEffect(() => {
     const updateWidth = () => {
       if (containerRef.current) {
@@ -86,15 +83,17 @@ const PreviousWork: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let interval:any;
-
     if (isAutoPlaying) {
-      interval = setInterval(() => {
+      autoPlayTimeoutRef.current = window.setTimeout(() => {
         handleNext();
-      }, 5000); // Change slide every 5 seconds
+      }, 5000);
     }
 
-    return () => clearInterval(interval);
+    return () => {
+      if (autoPlayTimeoutRef.current) {
+        window.clearTimeout(autoPlayTimeoutRef.current);
+      }
+    };
   }, [currentIndex, isAutoPlaying]);
 
   const handleNext = () => {
@@ -115,12 +114,9 @@ const PreviousWork: React.FC = () => {
     });
   };
 
-  const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: { offset: { x: number }; velocity: { x: number } }
-  ) => {
-    const threshold = 100; // minimum distance for swipe
-    const velocity = 0.5; // minimum velocity for swipe
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const threshold = containerWidth * 0.2; // 20% of container width
+    const velocity = 0.5;
 
     if (Math.abs(info.velocity.x) > velocity || Math.abs(info.offset.x) > threshold) {
       if (info.offset.x > 0) {
@@ -129,7 +125,6 @@ const PreviousWork: React.FC = () => {
         handleNext();
       }
     } else {
-      // Reset to current position if swipe wasn't strong enough
       controls.start({
         x: `-${currentIndex * 100}%`,
         transition: { type: "spring", stiffness: 300, damping: 30 }
@@ -138,31 +133,26 @@ const PreviousWork: React.FC = () => {
   };
 
   return (
-    <section className="py-20 px-4 bg-black overflow-hidden">
+    <section className="py-12 md:py-20 px-4 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4">
             Previous Work
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
             Explore some of our recent projects that showcase our expertise in
             creating beautiful and functional digital experiences.
           </p>
         </motion.div>
 
-        {/* Slideshow Container */}
         <div className="relative">
-          <div 
-            ref={containerRef}
-            className="overflow-hidden"
-          >
+          <div ref={containerRef} className="overflow-hidden touch-pan-y">
             <motion.div
               drag="x"
               dragConstraints={{ left: -containerWidth * (infiniteItems.length - 1), right: 0 }}
@@ -170,44 +160,52 @@ const PreviousWork: React.FC = () => {
               onDragEnd={handleDragEnd}
               animate={controls}
               style={{ x }}
-              className="flex"
+              className="flex touch-pan-y"
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
+              onTouchStart={() => setIsAutoPlaying(false)}
+              onTouchEnd={() => setIsAutoPlaying(true)}
             >
               {infiniteItems.map((item, index) => (
                 <motion.div
                   key={`${item.title}-${index}`}
-                  className="w-full flex-shrink-0 px-4"
+                  className="w-full flex-shrink-0 px-2 md:px-4"
                   style={{ width: containerWidth }}
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="relative overflow-hidden rounded-xl bg-gray-900 aspect-video group">
-                    <img
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative overflow-hidden rounded-lg md:rounded-xl bg-gray-900 aspect-video group"
+                  >
+                    <iframe
                       src={item.image}
-                      alt={item.title}
-                      className="object-cover w-full h-full transform group-hover:scale-110 transition-transform duration-700"
+                      title={item.title}
+                      className="w-full h-full border-0 transform group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300">
-                      <div className="absolute inset-0 flex flex-col justify-end p-8">
+                      <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-8">
                         <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                          <div className="flex items-center gap-3 mb-3">
+                          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
                             <span className="text-white/90">
                               {getIcon(item.icon)}
                             </span>
-                            <h3 className="text-2xl font-semibold text-white">
+                            <h3 className="text-lg md:text-2xl font-semibold text-white">
                               {item.title}
                             </h3>
                           </div>
-                          <p className="text-white/80 text-lg mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-white/80 text-sm md:text-lg mb-3 md:mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             {item.description}
                           </p>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-1.5 md:gap-2">
                             {item.tags.map(tag => (
                               <span
                                 key={tag}
-                                className="px-3 py-1 text-sm font-medium text-white/90 bg-white/10 rounded-full"
+                                className="px-2 md:px-3 py-0.5 md:py-1 text-xs md:text-sm font-medium text-white/90 bg-white/10 rounded-full"
                               >
                                 {tag}
                               </span>
@@ -216,33 +214,31 @@ const PreviousWork: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </a>
                 </motion.div>
               ))}
             </motion.div>
           </div>
 
-          {/* Navigation Buttons */}
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
           </motion.button>
 
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
           </motion.button>
 
-          {/* Progress Indicators */}
-          <div className="flex justify-center mt-8 gap-2">
+          <div className="flex justify-center mt-4 md:mt-8 gap-1.5 md:gap-2">
             {workItems.map((_, index) => (
               <motion.button
                 key={index}
@@ -253,8 +249,8 @@ const PreviousWork: React.FC = () => {
                     transition: { type: "spring", stiffness: 300, damping: 30 }
                   });
                 }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? 'w-8 bg-white' : 'bg-white/30'
+                className={`w-1.5 md:w-2 h-1.5 md:h-2 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'w-6 md:w-8 bg-white' : 'bg-white/30'
                 }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.8 }}

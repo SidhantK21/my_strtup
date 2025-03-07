@@ -25,7 +25,6 @@ const Footer = () => {
     }
   };
 
-  // Simplified social icon animations
   const socialVariants = {
     hover: {
       scale: 1.1,
@@ -56,7 +55,6 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-gradient-to-b from-black to-gray-900 overflow-hidden">
-      {/* Simplified background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
       </div>
@@ -72,22 +70,20 @@ const Footer = () => {
           {/* Brand Section */}
           <motion.div 
             id="brand-section"
-            className="md:col-span-4 space-y-8"
+            className="md:col-span-4 space-y-8 flex flex-col items-center md:items-start"
             variants={itemVariants}
           >
-            <motion.div 
-              className="flex items-center space-x-2"
-            >
-              
-              
-              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              <img src="/src/assets/TRI.svg" alt="#!" />
-              </span>
+            <motion.div className="flex items-center justify-center md:justify-start w-full md:h-24">
+              <img 
+                src="/src/assets/TRI.svg" 
+                alt="Tridenity Logo" 
+                className="w-48 h-48 md:w-56 md:h-56 -mt-8 md:-mt-16 md:-ml-4" 
+              />
             </motion.div>
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-gray-400 leading-relaxed text-center md:text-left text-lg max-w-md">
               Empowering innovation through cutting-edge technology solutions. Building the future, one pixel at a time.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-6 justify-center md:justify-start">
               {[
                 { icon: Github, href: "#", color: "text-purple-400" },
                 { icon: Twitter, href: "#", color: "text-blue-400" },
@@ -99,10 +95,11 @@ const Footer = () => {
                   href={social.href}
                   whileHover="hover"
                   variants={socialVariants}
-                  target='blank'
-                  className={`p-2 rounded-xl bg-white/5 ${social.color} transition-colors duration-300`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-3 rounded-xl bg-white/5 ${social.color} transition-colors duration-300 hover:bg-white/10`}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-6 h-6" />
                 </motion.a>
               ))}
             </div>
@@ -111,7 +108,7 @@ const Footer = () => {
           {/* Quick Links */}
           <motion.div 
             id="quick-links"
-            className="md:col-span-3 space-y-8"
+            className="md:col-span-3 space-y-8 text-center md:text-left md:mt-4"
             variants={itemVariants}
           >
             <h3 className="text-xl font-semibold text-white">Quick Links</h3>
@@ -128,7 +125,7 @@ const Footer = () => {
                   onClick={() => handleScrollToSection(link.id)}
                   variants={linkVariants}
                   whileHover="hover"
-                  className="flex items-center text-gray-400 hover:text-white group w-full text-left"
+                  className="flex items-center text-gray-400 hover:text-white group w-full justify-center md:justify-start"
                 >
                   <ChevronRight className="w-4 h-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <span>{link.text}</span>
@@ -140,7 +137,7 @@ const Footer = () => {
           {/* Resources */}
           <motion.div 
             id="resources"
-            className="md:col-span-2 space-y-8"
+            className="md:col-span-2 space-y-8 text-center md:text-left md:mt-4"
             variants={itemVariants}
           >
             <h3 className="text-xl font-semibold text-white">Resources</h3>
@@ -157,7 +154,7 @@ const Footer = () => {
                   onClick={() => handleScrollToSection(link.id)}
                   variants={linkVariants}
                   whileHover="hover"
-                  className="flex items-center text-gray-400 hover:text-white group w-full text-left"
+                  className="flex items-center text-gray-400 hover:text-white group w-full justify-center md:justify-start"
                 >
                   <ChevronRight className="w-4 h-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <span>{link.text}</span>
@@ -169,7 +166,7 @@ const Footer = () => {
           {/* Newsletter */}
           <motion.div 
             id="newsletter"
-            className="md:col-span-3 space-y-8"
+            className="md:col-span-3 space-y-8 text-center md:text-left md:mt-4"
             variants={itemVariants}
           >
             <h3 className="text-xl font-semibold text-white">Stay Connected</h3>
@@ -177,11 +174,11 @@ const Footer = () => {
               Subscribe to our newsletter for updates and insights.
             </p>
             <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-              <div className="relative">
+              <div className="relative max-w-sm mx-auto md:mx-0">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white placeholder-gray-500 pr-12"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500 text-white placeholder-gray-500 pr-12"
                 />
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -202,7 +199,7 @@ const Footer = () => {
           className="mt-20 pt-8 border-t border-white/10"
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm text-center md:text-left">
               © {new Date().getFullYear()} Tridenity. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center md:justify-end gap-6 text-sm text-gray-400">
