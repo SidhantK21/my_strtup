@@ -78,10 +78,10 @@ const Footer = () => {
             <motion.div 
               className="flex items-center space-x-2"
             >
-              {/* in this add the logo  */}
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg" />
+              
+              
               <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Tridenity
+              <img src="/src/assets/TRI.svg" alt="#!" />
               </span>
             </motion.div>
             <p className="text-gray-400 leading-relaxed">
