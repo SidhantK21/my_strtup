@@ -21,7 +21,7 @@ export const Hero = () => {
   }, [controls]);
 
   return (
-    <div className="min-h-screen bg-black flex items-center">
+    <div id='home' className="min-h-screen bg-black flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-44 items-center">
           {/* Left Column - Text Content */}
@@ -52,30 +52,19 @@ export const Hero = () => {
                     backgroundImage: "linear-gradient(to right, #9333ea, #ec4899, #ef4444)",
                     backgroundSize: "200% auto",
                     WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
                     WebkitTextFillColor: "transparent",
+                    color: "transparent",
                     display: "inline-block",
-                    position: "relative"
+                    position: "relative",
+                    paddingBottom: "0.1em",
+                    paddingRight:"0.1em"
                   }}
+                  className=''
                 >
-                  Pixel
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-pink-500/20 to-red-500/20 blur-2xl -z-10 scale-150 opacity-50"></div>
+                  Tridenity
+                  
                 </motion.div>
-                <motion.div
-                  animate={controls}
-                  style={{
-                    backgroundImage: "linear-gradient(to right, #06b6d4, #3b82f6, #4f46e5)",
-                    backgroundSize: "200% auto",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    display: "block",
-                    marginTop: "0.5rem",
-                    position: "relative"
-                  }}
-                >
-                  Mosaic
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-indigo-500/20 blur-2xl -z-10 scale-150 opacity-50"></div>
-                </motion.div>
-                <div className="absolute -inset-4 bg-black/40 blur-3xl -z-20"></div>
               </motion.h1>
             </div>
             
@@ -109,12 +98,12 @@ export const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Image */}
+          {/* Right Column - Image - Hidden on mobile screens, visible on lg screens and up */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative h-[600px] rounded-2xl overflow-hidden"
+            className="relative h-[600px] rounded-2xl overflow-hidden hidden lg:block"
           >
             <motion.div
               initial={{ scale: 1.2 }}

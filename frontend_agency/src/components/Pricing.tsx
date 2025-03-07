@@ -134,7 +134,7 @@ const PricingCard = ({
 
 export const Pricing = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div id="pricing" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <div className="text-center space-y-8 mb-20">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
@@ -164,26 +164,25 @@ export const Pricing = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <PricingCard
           title="Standard"
-          price="$999"
+          price="$599"
           features={[
-            "10 Custom AI Designs",
-            "Advanced Analytics",
-            "24/7 Priority Support",
-            "2 Brand Identities",
-            "Weekly Reports",
-            "Basic Integration",
+            "Custom Designing",
+            "2 times free design revision",
+            "3 months free maintenance",
+            "Custom logo design",
+            "Essential API & CMS Integration",
           ]}
           delay={0.2}
         />
         <PricingCard
           title="Enterprise"
-          price="$1999"
+          price="$1299"
           features={[
-            "Unlimited AI Designs",
-            "Enterprise Analytics",
-            "Dedicated Support Team",
-            "Unlimited Brands",
-            "Real-time Reports",
+            "Design revisions",
+            "SEO optimization",
+            "Security",
+            "Custom logo",
+            "6 months free maintenance",
             "API Access",
             "Custom Solutions",
           ]}

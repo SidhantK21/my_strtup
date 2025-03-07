@@ -1,177 +1,230 @@
 import { motion } from 'framer-motion';
-import { Github, Twitter, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
+import { Github, Twitter, Linkedin, Mail, ChevronRight, Send } from 'lucide-react';
 
 const Footer = () => {
-  // Animation variants for links
-  const linkVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    hover: { scale: 1.05, x: 5 }
-  };
-
-  // Animation variants for social icons
-  const iconVariants = {
-    initial: { scale: 0.9, opacity: 0 },
-    animate: { scale: 1, opacity: 1 },
-    hover: { 
-      scale: 1.2,
-      rotate: [0, -10, 10, -5, 5, 0],
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
       transition: {
-        duration: 0.5,
-        type: "spring",
-        stiffness: 200
+        staggerChildren: 0.1,
+        delayChildren: 0.3
       }
     }
   };
 
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
+  // Simplified social icon animations
+  const socialVariants = {
+    hover: {
+      scale: 1.1,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10
+      }
+    }
+  };
+
+  const linkVariants = {
+    hover: {
+      x: 10,
+      transition: {
+        type: "spring",
+        stiffness: 400
+      }
+    }
+  };
+
+  const handleScrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
-    <footer className="relative bg-black border-t border-white/10">
-      {/* Animated grid pattern */}
-      <div className="absolute inset-0 grid grid-cols-12 gap-4 pointer-events-none opacity-10">
-        {[...Array(48)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.5, 0] }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: i * 0.1,
-              repeatType: "reverse"
-            }}
-            className="h-full w-full bg-white/5"
-          />
-        ))}
+    <footer className="relative bg-gradient-to-b from-black to-gray-900 overflow-hidden">
+      {/* Simplified background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),rgba(255,255,255,0))]" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-          {/* Company Info */}
-          <div className="space-y-6">
-            <motion.h3 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold text-white"
+      <motion.div 
+        className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+          {/* Brand Section */}
+          <motion.div 
+            id="brand-section"
+            className="md:col-span-4 space-y-8"
+            variants={itemVariants}
+          >
+            <motion.div 
+              className="flex items-center space-x-2"
             >
-              Company
-            </motion.h3>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-gray-400 max-w-sm"
-            >
-              Transforming ideas into reality through innovative solutions and cutting-edge technology.
-            </motion.p>
+              {/* in this add the logo  */}
+              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg" />
+              <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Tridenity
+              </span>
+            </motion.div>
+            <p className="text-gray-400 leading-relaxed">
+              Empowering innovation through cutting-edge technology solutions. Building the future, one pixel at a time.
+            </p>
             <div className="flex space-x-4">
               {[
-                { icon: Github, href: "#" },
-                { icon: Twitter, href: "#" },
-                { icon: Linkedin, href: "#" },
-                { icon: Mail, href: "#" }
+                { icon: Github, href: "#", color: "text-purple-400" },
+                { icon: Twitter, href: "#", color: "text-blue-400" },
+                { icon: Linkedin, href: "#", color: "text-blue-500" },
+                { icon: Mail, href: "#", color: "text-red-400" }
               ].map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
-                  variants={iconVariants}
-                  initial="initial"
-                  animate="animate"
                   whileHover="hover"
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                  variants={socialVariants}
+                  target='blank'
+                  className={`p-2 rounded-xl bg-white/5 ${social.color} transition-colors duration-300`}
                 >
-                  <social.icon className="w-5 h-5 text-white" />
+                  <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="space-y-6">
-            <motion.h3 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold text-white"
-            >
-              Quick Links
-            </motion.h3>
-            <div className="grid grid-cols-1 gap-4">
+          <motion.div 
+            id="quick-links"
+            className="md:col-span-3 space-y-8"
+            variants={itemVariants}
+          >
+            <h3 className="text-xl font-semibold text-white">Quick Links</h3>
+            <div className="space-y-4">
               {[
-                "About Us",
-                "Services",
-                "Portfolio",
-                "Contact",
-                "Blog"
+                { text: "About Us", id: "home" },
+                { text: "Services", id: "services" },
+                { text: "Technology", id: "technology" },
+                { text: "Pricing", id: "pricing" },
+                { text: "Contact", id: "contact" }
               ].map((link, index) => (
-                <motion.a
+                <motion.button
                   key={index}
-                  href="#"
+                  onClick={() => handleScrollToSection(link.id)}
                   variants={linkVariants}
-                  initial="initial"
-                  animate="animate"
                   whileHover="hover"
-                  className="flex items-center text-gray-400 hover:text-white group"
+                  className="flex items-center text-gray-400 hover:text-white group w-full text-left"
                 >
-                  <span>{link}</span>
-                  <ArrowUpRight className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </motion.a>
+                  <ChevronRight className="w-4 h-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span>{link.text}</span>
+                </motion.button>
               ))}
             </div>
-          </div>
+          </motion.div>
+
+          {/* Resources */}
+          <motion.div 
+            id="resources"
+            className="md:col-span-2 space-y-8"
+            variants={itemVariants}
+          >
+            <h3 className="text-xl font-semibold text-white">Resources</h3>
+            <div className="space-y-4">
+              {[
+                { text: "Blog", id: "blog" },
+                { text: "Documentation", id: "docs" },
+                { text: "Help Center", id: "help" },
+                { text: "FAQ", id: "faq" },
+                { text: "API", id: "api" }
+              ].map((link, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => handleScrollToSection(link.id)}
+                  variants={linkVariants}
+                  whileHover="hover"
+                  className="flex items-center text-gray-400 hover:text-white group w-full text-left"
+                >
+                  <ChevronRight className="w-4 h-4 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span>{link.text}</span>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Newsletter */}
-          <div className="space-y-6">
-            <motion.h3 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold text-white"
-            >
-              Stay Updated
-            </motion.h3>
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-gray-400"
-            >
-              Subscribe to our newsletter for the latest updates and insights.
-            </motion.p>
-            <motion.form 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="relative"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-white/20 text-white"
-              />
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="mt-4 w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-              >
-                Subscribe
-              </motion.button>
-            </motion.form>
-          </div>
+          <motion.div 
+            id="newsletter"
+            className="md:col-span-3 space-y-8"
+            variants={itemVariants}
+          >
+            <h3 className="text-xl font-semibold text-white">Stay Connected</h3>
+            <p className="text-gray-400">
+              Subscribe to our newsletter for updates and insights.
+            </p>
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white placeholder-gray-500 pr-12"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-white"
+                >
+                  <Send className="w-4 h-4" />
+                </motion.button>
+              </div>
+            </form>
+          </motion.div>
         </div>
 
         {/* Bottom Bar */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+          id="bottom-bar"
+          variants={itemVariants}
+          className="mt-20 pt-8 border-t border-white/10"
         >
-          <p className="text-gray-400 text-sm">
-            © 2025 Company. All rights reserved.
-          </p>
-          <div className="flex space-x-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} Tridenity. All rights reserved.
+            </p>
+            <div className="flex flex-wrap justify-center md:justify-end gap-6 text-sm text-gray-400">
+              {[
+                { text: "Privacy Policy", id: "privacy" },
+                { text: "Terms of Service", id: "terms" },
+                { text: "Cookie Policy", id: "cookies" },
+                { text: "Accessibility", id: "accessibility" }
+              ].map((link, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => handleScrollToSection(link.id)}
+                  whileHover={{ color: "#fff" }}
+                  className="hover:text-white transition-colors"
+                >
+                  {link.text}
+                </motion.button>
+              ))}
+            </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </footer>
   );
 };

@@ -80,7 +80,7 @@ const TechStack = () => {
   ];
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section id='technology' className="relative py-24 overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black">
         <div className="absolute inset-0">
@@ -96,10 +96,7 @@ const TechStack = () => {
             viewport={{ once: true }}
             className="inline-block"
           >
-            <div className="inline-flex items-center px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-6">
-              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse mr-2" />
-              <span className="text-sm text-white/80">Our Tech Stack</span>
-            </div>
+            
           </motion.div>
 
           <motion.h2
@@ -133,30 +130,6 @@ const TechStack = () => {
           ))}
         </motion.div>
 
-        {/* AWS Cloud Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 p-8 rounded-2xl bg-gradient-to-r from-[#232F3E] to-[#232F3E]/80 border border-white/10"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold text-white mb-4">Powered by AWS Cloud</h3>
-              <p className="text-gray-300">
-                Utilizing Amazon Web Services for reliable, secure, and scalable cloud infrastructure
-              </p>
-            </div>
-            <div className="flex items-center space-x-4">
-              <motion.img
-                whileHover={{ scale: 1.05 }}
-                src="https://images.unsplash.com/photo-1549605659-32d82da3a059?auto=format&fit=crop&q=80&w=200"
-                alt="AWS Cloud"
-                className="w-32 h-32 object-cover rounded-xl"
-              />
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

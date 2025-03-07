@@ -1,79 +1,70 @@
-import {Request,Response,Router}from "express";
+import { Request, Response, Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
 dotenv.config();
 
-const userRouter=Router();
-const client=new PrismaClient();
-const jwtSec=process.env.JWT_SECRET||"";
+const userRouter = Router();
+const client = new PrismaClient();
+const jwtSec = process.env.JWT_SECRET || "";
 
+userRouter.post("/signin", async (req: Request, res: Response): Promise<any> => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1]; // ✅ Fixed token split
 
-userRouter.post("/signin",async (req:Request,res:Response):Promise<any>=>{
-    try{
-        const token=req.headers.authorization?.split("")[1];
-        if(token)
-        {   
-            try{
-                const decoded=jwt.verify(token,jwtSec);
-                return res.status(400).json({
-                    message:"User already signed in"
-                });
-            }catch(e)
-            {
-                return res.json({
-                    message:"Signin jwt expired"
-                })
+        if (token) {
+            try {
+                jwt.verify(token, jwtSec);
+                return res.status(400).json({ message: "User already signed in" });
+            } catch (error) {
+                return res.status(401).json({ message: "Signin JWT expired" });
             }
         }
 
-        const {email,password}=req.body;
-
-        const findUser=await client.user.findUnique({
-            where:{email}
-        })
-
-        if(!findUser)
-        {
-            return res.status(404).json({
-                message:"User with this email do not exists with us try signup "
-            })
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
         }
 
-        const isPassword=await bcrypt.compare(password,findUser.password);
-        if(!isPassword)
-        {
-            return res.status(401).json({
-                message:"Password doesn't match"
-            })
-        }
-
-        const newToken=await jwt.sign({userId:findUser.id,email:findUser.email},jwtSec,{
-            expiresIn:"24hr"
+        const findUser = await client.user.findUnique({
+            where: { email },
         });
 
-        return res.json({
-            token:newToken
-        })
+        if (!findUser) {
+            return res.status(404).json({
+                message: "User with this email does not exist. Try signing up.",
+            });
+        }
 
-    }catch(e)
-    {
+        const isPassword = await bcrypt.compare(password, findUser.password);
+        if (!isPassword) {
+            return res.status(401).json({ message: "Incorrect password" });
+        }
+
+        const newToken = jwt.sign({ userId: findUser.id, email: findUser.email }, jwtSec, {
+            expiresIn: "24h", // ✅ Fixed expiry format
+        });
+
+        return res.json({ token: newToken });
+
+    } catch (error) {
+        console.error("Error during signin:", error); // ✅ Log error properly
         return res.status(500).json({
-            message:"Error while signin ! Try again"
-        })
+            message: "Error while signing in! Try again",
+            error: error instanceof Error ? error.message : "Unknown error"
+        });
     }
-})
+});
 
-userRouter.post("/signup",async (req:Request,res:Response):Promise<any>=>{
+userRouter.post("/signup",async(req:Request,res:Response):Promise<any>=>{
     try{
-        const {name,email,password}=req.body;
-        if(!name||!email||!password)
+        const {fullname,email,password}=req.body;
+        if(!fullname||!email||!password)
         {
             console.log("Inputs required");
-
-            // throw new Error("Inputs are required for the singup ");
-
+            
             return res.status(400).json({
                 message:"All input fields are required"
             })
@@ -94,11 +85,10 @@ userRouter.post("/signup",async (req:Request,res:Response):Promise<any>=>{
 
         // in this 10 is the salt rounds 
         const hashedPassword=await bcrypt.hash(password,10);
-        console.log(hashedPassword);
 
         const user=await client.user.create({
             data:{
-                name,
+                fullname,
                 email,
                 password:hashedPassword
             }
@@ -121,8 +111,6 @@ userRouter.post("/signup",async (req:Request,res:Response):Promise<any>=>{
             error:e.message
         })
     }
-
 })
-
 
 export default userRouter;
