@@ -114,7 +114,7 @@ const PreviousWork: React.FC = () => {
     });
   };
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const threshold = containerWidth * 0.2; // 20% of container width
     const velocity = 0.5;
 
