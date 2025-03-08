@@ -18,7 +18,7 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems: string[] = ["Home", "Services", "Technology", "Contact", "Pricing"];
+  const navItems: string[] = ["Previous Work", "Services", "Technology", "Contact", "Pricing"];
 
   const handleScroll = (id: string) => {
     const section = document.getElementById(id);

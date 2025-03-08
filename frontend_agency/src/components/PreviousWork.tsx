@@ -114,7 +114,7 @@ const PreviousWork: React.FC = () => {
     });
   };
 
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+  const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const threshold = containerWidth * 0.2; // 20% of container width
     const velocity = 0.5;
 
@@ -133,7 +133,7 @@ const PreviousWork: React.FC = () => {
   };
 
   return (
-    <section className="py-12 md:py-20 px-4 bg-black overflow-hidden">
+    <section id='previous work' className="py-12 md:py-20 px-4 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

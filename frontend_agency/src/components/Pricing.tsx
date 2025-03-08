@@ -19,7 +19,9 @@ const PricingCard = ({
 }: PricingCardProps) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [isHovered, setIsHovered] = useState(false);
+
+  // if deployment fails try adding ishovered here 
+  const [,setIsHovered] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { currentTarget, clientX, clientY } = e;

@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { X, Mail, Lock, ArrowRight } from 'lucide-react';
 import axios from "axios";
-import { ToastContainer,Toast,ToastType } from './Toast';
+import { ToastContainer, Toast, ToastType } from './Toast';
 import { Loader } from './Loader';
 
 interface SignInProps {
@@ -17,6 +17,15 @@ export const SignIn = ({ onSignUp, onClose }: SignInProps) => {
   });
   const [loading, setLoading] = useState(false);
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check for token in localStorage on mount
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const showToast = (type: ToastType, message: string) => {
     const newToast = {
@@ -36,14 +45,19 @@ export const SignIn = ({ onSignUp, onClose }: SignInProps) => {
     setLoading(true);
     
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate delay
       const response = await axios.post("http://localhost:3000/auth/signin", signinData, {
         headers: {
           "Content-Type": "application/json",
         }
       });
+
+      const token = response.data.token; 
+      localStorage.setItem("authToken", token);
+      setIsAuthenticated(true);
       showToast('success', 'Sign in successful!');
-      console.log("Signin successful:", response.data);
+
+      
+      setTimeout(onClose, 1500);
       
     } catch (error) {
       showToast('error', 'Sign in failed. Please try again.');
@@ -52,6 +66,26 @@ export const SignIn = ({ onSignUp, onClose }: SignInProps) => {
       setLoading(false);
     }
   };
+
+  if (isAuthenticated) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        className="backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl overflow-hidden border border-white/20 relative p-8 sm:p-10"
+      >
+        <ToastContainer toasts={toasts} removeToast={removeToast} />
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-white">You're already signed in!</h2>
+          <button onClick={onClose} className="text-white/70 hover:text-white transition-colors">
+            <X size={24} />
+          </button>
+        </div>
+        <p className="text-white/80">You can continue browsing the site.</p>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -65,10 +99,7 @@ export const SignIn = ({ onSignUp, onClose }: SignInProps) => {
       <div className="p-8 sm:p-10">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
-          <button
-            onClick={onClose}
-            className="text-white/70 hover:text-white transition-colors"
-          >
+          <button onClick={onClose} className="text-white/70 hover:text-white transition-colors">
             <X size={24} />
           </button>
         </div>

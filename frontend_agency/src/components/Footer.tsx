@@ -178,7 +178,7 @@ const Footer = () => {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-purple-500 text-white placeholder-gray-500 pr-12"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white placeholder-gray-500 pr-12"
                 />
                 <motion.button
                   whileHover={{ scale: 1.1 }}
