@@ -11,7 +11,6 @@ interface LoaderProps {
 export const Loader = ({ 
   size = 'md', 
   color = 'white',
-  // variant = 'default',
   speed = 'normal'
 }: LoaderProps) => {
   const [mounted, setMounted] = useState(false);
