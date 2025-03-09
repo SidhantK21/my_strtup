@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "prebuild": "prisma generate",
+  "prebuild": "prisma generate --schema=db/prisma/schema.prisma",
   "build": "npx tsc -b",
   "start": "node dist/index.js"
-},
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
