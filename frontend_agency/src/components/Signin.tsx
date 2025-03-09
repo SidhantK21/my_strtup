@@ -45,7 +45,7 @@ export const SignIn = ({ onSignUp, onClose }: SignInProps) => {
     setLoading(true);
     
     try {
-      const response = await axios.post("http://localhost:3000/auth/signin", signinData, {
+      const response = await axios.post("https://my-strtup-3.onrender.com/auth/signin", signinData, {
         headers: {
           "Content-Type": "application/json",
         }

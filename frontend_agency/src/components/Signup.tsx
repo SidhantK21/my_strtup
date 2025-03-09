@@ -35,7 +35,7 @@ export const SignUp = ({ onSignIn, onClose }: SignUpProps) => {
   
     setTimeout(async () => {
       try {
-        const response = await axios.post("http://localhost:3000/auth/signup", signupData);
+        const response = await axios.post("https://my-strtup-3.onrender.com/auth/signup", signupData);
         const token = response.data.token; // Assuming backend returns a token
   
         localStorage.setItem("authToken", token);
