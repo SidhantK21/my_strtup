@@ -64,7 +64,7 @@ export const Navbar = () => {
           <div className="px-6 sm:px-8">
             <div className="flex items-center justify-between h-16">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-shrink-0">
-                <span className="text-white text-xl font-bold"><img src="/src/assets/TRIDENITY.svg" alt="#!" /></span>
+                <span className="text-white text-xl font-bold"><img src="https://res.cloudinary.com/dmt4dj8ft/image/upload/v1741492171/TRIDENITY_100_x_100_px_mv7io0.svg" alt="#!" /></span>
               </motion.div>
 
               {/* Desktop Navigation */}
