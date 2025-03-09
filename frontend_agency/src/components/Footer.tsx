@@ -75,7 +75,7 @@ const Footer = () => {
           >
             <motion.div className="flex items-center justify-center md:justify-start w-full md:h-24">
               <img 
-                src="/src/assets/TRI.svg" 
+                src="https://res.cloudinary.com/dmt4dj8ft/image/upload/v1741492238/TRIDENITY_yyfti0.svg" 
                 alt="Tridenity Logo" 
                 className="w-48 h-48 md:w-56 md:h-56 -mt-8 md:-mt-16 md:-ml-4" 
               />
