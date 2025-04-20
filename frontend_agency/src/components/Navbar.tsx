@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Menu, X, LogIn } from "lucide-react";
-import { SignIn } from "./Signin";
-import { SignUp } from "./Signup";
+import { DollarSign, Phone, Menu, X } from "lucide-react";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState<"signin" | "signup" | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,9 +14,12 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems: string[] = ["Previous Work", "Services", "Technology", "Contact", "Pricing"];
+  const navItems = [
+    { id: "contact", label: "Contact", icon: Phone },
+    { id: "pricing", label: "Pricing", icon: DollarSign },
+  ];
 
-  const handleScroll = (id: string) => {
+  const handleScroll = (id:any) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -28,117 +27,84 @@ export const Navbar = () => {
     }
   };
 
-  const AuthButton = () => (
-    <div className="flex items-center gap-3">
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => setShowAuthModal("signin")}
-        className="px-4 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors duration-200"
-      >
-        Sign In
-      </motion.button>
-      <motion.button
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onClick={() => setShowAuthModal("signup")}
-        className="px-4 py-2 text-sm font-medium bg-white/10 hover:bg-white/20 text-white rounded-lg flex items-center gap-2 transition-colors duration-200"
-      >
-        <LogIn className="w-4 h-4" />
-        <span>Sign Up</span>
-      </motion.button>
-    </div>
-  );
-
   return (
-    <>
-      {/* Navbar */}
-      <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
-          scrolled ? "py-4" : "py-6"
+    <nav
+      className={`fixed top-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg transition-all duration-500 px-4 ${
+        scrolled ? "py-2" : "py-3"
+      }`}
+    >
+      <div
+        className={`rounded-2xl border border-white/20 transition-all duration-500 ${
+          scrolled
+            ? "bg-black/80 backdrop-blur-md shadow-lg shadow-black/30"
+            : "bg-black/40 backdrop-blur-sm"
         }`}
       >
-        <div className="backdrop-blur-md bg-white/10 border border-white/10 rounded-2xl w-[90vw] max-w-6xl">
-          <div className="px-6 sm:px-8">
-            <div className="flex items-center justify-between h-16">
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-shrink-0">
-                <span className="text-white text-xl font-bold"><img src="/src/assets/TRIDENITY.svg" alt="#!" /></span>
-              </motion.div>
-
-              {/* Desktop Navigation */}
-              <div className="hidden md:flex md:items-center md:space-x-8">
-                <div className="flex items-center space-x-8">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleScroll(item.toLowerCase())}
-                      className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
-                    >
-                      {item}
-                    </motion.button>
-                  ))}
-                </div>
-                <div className="ml-8 pl-8 border-l border-white/10">
-                  <AuthButton />
-                </div>
-              </div>
-
-              {/* Mobile Navigation Button */}
-              <div className="md:hidden">
-                <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-white">
-                  {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-              </div>
+        <div className="px-4 sm:px-6">
+          <div className="flex items-center justify-between h-14">
+            {/* Logo */}
+            <div className="flex items-center">
+              <span className="text-white text-2xl font-bold">
+                <img
+                  src="/src/assets/TRIDENITY.svg"
+                  alt="Tridenity Logo"
+                  className="w-10 h-10 sm:w-12 sm:h-12 transition-transform duration-300 hover:scale-105"
+                />
+              </span>
             </div>
 
-            {/* Mobile Navigation Menu */}
-            {isOpen && (
-              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden">
-                <div className="px-2 pt-2 pb-3 space-y-1">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleScroll(item.toLowerCase())}
-                      className="text-gray-300 hover:text-white block px-3 py-2 text-base font-medium"
-                    >
-                      {item}
-                    </motion.button>
-                  ))}
-                  <div className="pt-4 mt-4 border-t border-white/10">
-                    <div className="px-3">
-                      <AuthButton />
-                    </div>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-4">
+              {navItems.map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  onClick={() => handleScroll(id)}
+                  className="group flex items-center gap-2 text-gray-200 hover:text-white text-sm font-medium transition-all duration-300 px-4 py-1.5 rounded-full border hover:backdrop-blur-3xl border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10"
+                >
+                  <Icon size={14} className="transition-transform duration-300 group-hover:scale-110" />
+                  <span>{label}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-gray-200 hover:text-white p-2 rounded-full border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all duration-300"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <div
+            className={`md:hidden transition-all duration-500 ease-in-out overflow-hidden ${
+              isOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="px-2 py-3 space-y-2.5">
+              {navItems.map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  onClick={() => handleScroll(id)}
+                  className="group flex items-center gap-3 w-full justify-between text-gray-200 hover:text-white px-4 py-2.5 text-sm font-medium transition-all duration-300 rounded-xl border hover:backdrop-blur-3xl border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10"
+                >
+                  <div className="flex items-center gap-2 ">
+                    <Icon size={16} className="transition-transform duration-300 group-hover:scale-110" />
+                    <span>{label}</span>
                   </div>
-                </div>
-              </motion.div>
-            )}
+                  <svg className="w-4 h-4 opacity-70 group-hover:opacity-100 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </motion.nav>
-
-      {/* Auth Modal */}
-      {showAuthModal && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/50"
-        >
-          <div className="w-full max-w-md backdrop-blur-3xl">
-            {showAuthModal === "signin" ? (
-              <SignIn onSignUp={() => setShowAuthModal("signup")} onClose={() => setShowAuthModal(null)} />
-            ) : (
-              <SignUp onSignIn={() => setShowAuthModal("signin")} onClose={() => setShowAuthModal(null)} />
-            )}
-          </div>
-        </motion.div>
-      )}
-    </>
+      </div>
+    </nav>
   );
 };

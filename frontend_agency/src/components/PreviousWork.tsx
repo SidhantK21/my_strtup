@@ -142,10 +142,10 @@ const PreviousWork: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6">
             Previous Work
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+          <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed tracking-light">
             Explore some of our recent projects that showcase our expertise in
             creating beautiful and functional digital experiences.
           </p>
@@ -184,12 +184,12 @@ const PreviousWork: React.FC = () => {
                     <iframe
                       src={item.image}
                       title={item.title}
-                      className="w-full h-full border-0 transform group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full border-0 transform "
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300">
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 t">
                       <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-8">
-                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <div className="transform translate-y-4 ">
                           <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
                             <span className="text-white/90">
                               {getIcon(item.icon)}
@@ -198,7 +198,7 @@ const PreviousWork: React.FC = () => {
                               {item.title}
                             </h3>
                           </div>
-                          <p className="text-white/80 text-sm md:text-lg mb-3 md:mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="text-white/80 text-sm md:text-lg mb-3 md:mb-4  ">
                             {item.description}
                           </p>
                           <div className="flex flex-wrap gap-1.5 md:gap-2">

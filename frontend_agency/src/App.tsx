@@ -1,11 +1,10 @@
-import  {Navbar}  from './components/Navbar';
+import  { Navbar }  from './components/Navbar';
 import { Hero } from './components/Herosection';
-import  {Offerings}  from './components/Offerings';
+import  { Offerings }  from './components/Offerings';
 import { Contact } from './components/Contact';
-import  {Pricing}  from './components/Pricing';
-import Footer from './components/Footer';
+import  { Pricing }  from './components/Pricing';
+import Footer  from './components/Footer';
 import PreviousWork from './components/PreviousWork';
-import TechStack from './components/TechStack';
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
       <Hero />
       <Offerings />
     
-      <TechStack />
       <PreviousWork />
       
       <Contact />

@@ -22,6 +22,7 @@ const PricingCard = ({
 
   // if deployment fails try adding ishovered here 
   const [,setIsHovered] = useState(false);
+  const whatsappNumber=7607010648
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { currentTarget, clientX, clientY } = e;
@@ -33,6 +34,7 @@ const PricingCard = ({
     mouseX.set(newX);
     mouseY.set(newY);
   };
+
 
   return (
     <motion.div
@@ -91,7 +93,6 @@ const PricingCard = ({
             <span className="text-5xl font-bold tracking-tight text-white">
               {price}
             </span>
-            <span className="ml-1 text-2xl text-gray-400">/month</span>
           </motion.div>
         </div>
 
@@ -118,6 +119,7 @@ const PricingCard = ({
         </ul>
 
         <button
+          onClick={() => window.open(`https://web.whatsapp.com/send?phone=${whatsappNumber}`, "_blank")}
           className={`
             w-full py-4 rounded-full font-medium
             ${isPopular 
@@ -137,40 +139,41 @@ const PricingCard = ({
 export const Pricing = () => {
   return (
     <div id="pricing" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div className="text-center space-y-8 mb-20">
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-white/70 uppercase tracking-widest text-sm font-medium"
-        >
-          Pricing Plans
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-5xl md:text-6xl font-bold tracking-tight text-white"
-        >
-          Choose Your Plan
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="text-white/70 text-lg max-w-2xl mx-auto"
-        >
-          Select the perfect plan that aligns with your digital ambitions. Transform your vision into reality with our tailored solutions.
-        </motion.p>
-      </div>
+     <div className="text-center space-y-6 mb-20">
+  <motion.span
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="text-white/60 uppercase tracking-widest text-sm font-semibold"
+  >
+    Our Plans
+  </motion.span>
+  <motion.h2
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2 }}
+    className="text-4xl md:text-5xl font-extrabold tracking-tight text-white"
+  >
+    Transparent Pricing 
+  </motion.h2>
+  <motion.p
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.4 }}
+    className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed tracking-light"
+  >
+    Whether you're just getting started or scaling up, our flexible plans are designed to support your growth — with clarity, value, and zero hidden fees.
+  </motion.p>
+</div>
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <PricingCard
           title="Standard"
-          price="$599"
+          price="$110"
           features={[
             "Custom Designing",
-            "2 times free design revision",
-            "3 months free maintenance",
+            "1 time free design revision",
+            "1 months free maintenance",
             "Custom logo design",
             "Essential API & CMS Integration",
           ]}
@@ -178,13 +181,12 @@ export const Pricing = () => {
         />
         <PricingCard
           title="Enterprise"
-          price="$1299"
+          price="$300"
           features={[
-            "Design revisions",
+            "Design revisions 2 times",
             "SEO optimization",
             "Security",
-            "Custom logo",
-            "6 months free maintenance",
+            "2 months free maintenance",
             "API Access",
             "Custom Solutions",
           ]}
