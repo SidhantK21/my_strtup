@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Twitter, Linkedin, Instagram, Mail, ArrowRight, ChevronUp } from 'lucide-react';
+import { Github, Twitter, Linkedin, Instagram, ArrowRight, ChevronUp } from 'lucide-react';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
