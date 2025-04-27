@@ -5,7 +5,7 @@ import { ExternalLink, Code, Palette, ChevronLeft, ChevronRight } from 'lucide-r
 interface WorkItem {
   title: string;
   description: string;
-  image: string;
+  screenshot: string;
   link: string;
   tags: string[];
   icon: 'code' | 'design' | 'link';
@@ -15,7 +15,7 @@ const workItems: WorkItem[] = [
   {
     title: "Academy Learning Platform",
     description: "An interactive educational platform for modern learning experiences",
-    image: "https://academymanish.netlify.app/",
+    screenshot: "/maniac.png",
     link: "https://academymanish.netlify.app/",
     tags: ["React", "Tailwind", "Education"],
     icon: "code"
@@ -23,7 +23,7 @@ const workItems: WorkItem[] = [
   {
     title: "Sutlej Industrial Corp",
     description: "Professional industrial corporation website with modern design",
-    image: "https://www.sutlejindustrialcorp.com/",
+    screenshot: "/sutl.png",
     link: "https://www.sutlejindustrialcorp.com/",
     tags: ["Corporate", "UI/UX", "Industry"],
     icon: "design"
@@ -31,7 +31,7 @@ const workItems: WorkItem[] = [
   {
     title: "SIH Project",
     description: "Smart India Hackathon project showcasing innovation",
-    image: "https://sih-project-two.vercel.app/",
+    screenshot: "/agro.png",
     link: "https://sih-project-two.vercel.app/",
     tags: ["React", "Innovation", "Hackathon"],
     icon: "code"
@@ -39,7 +39,7 @@ const workItems: WorkItem[] = [
   {
     title: "PDF Summarizer",
     description: "AI-powered PDF summarization tool for efficient document processing",
-    image: "https://pdfsummarizer-rust.vercel.app/",
+    screenshot: "/pdfrag.png",
     link: "https://pdfsummarizer-rust.vercel.app/",
     tags: ["AI", "PDF", "Tools"],
     icon: "link"
@@ -133,26 +133,26 @@ const PreviousWork: React.FC = () => {
   };
 
   return (
-    <section id='previous work' className="py-12 md:py-20 px-4 bg-black overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section id='previous work' className="py-6 sm:py-12 md:py-20 px-1 sm:px-4 bg-black overflow-hidden">
+      <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 md:mb-16"
+          className="text-center mb-4 sm:mb-8 md:mb-16 px-2"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-3 sm:mb-6">
             Previous Work
           </h2>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto leading-relaxed tracking-light">
+          <p className="text-white/70 text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed tracking-light">
             Explore some of our recent projects that showcase our expertise in
             creating beautiful and functional digital experiences.
           </p>
         </motion.div>
 
-        <div className="relative">
-          <div ref={containerRef} className="overflow-hidden touch-pan-y">
+        <div className="relative w-full">
+          <div ref={containerRef} className="overflow-hidden touch-pan-y w-full">
             <motion.div
               drag="x"
               dragConstraints={{ left: -containerWidth * (infiniteItems.length - 1), right: 0 }}
@@ -160,7 +160,7 @@ const PreviousWork: React.FC = () => {
               onDragEnd={handleDragEnd}
               animate={controls}
               style={{ x }}
-              className="flex touch-pan-y"
+              className="flex touch-pan-y w-full"
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
               onTouchStart={() => setIsAutoPlaying(false)}
@@ -169,7 +169,7 @@ const PreviousWork: React.FC = () => {
               {infiniteItems.map((item, index) => (
                 <motion.div
                   key={`${item.title}-${index}`}
-                  className="w-full flex-shrink-0 px-2 md:px-4"
+                  className="w-full flex-shrink-0 px-0.5 sm:px-2 md:px-4"
                   style={{ width: containerWidth }}
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -179,33 +179,33 @@ const PreviousWork: React.FC = () => {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block relative overflow-hidden rounded-lg md:rounded-xl bg-gray-900 aspect-video group"
+                    className="block relative overflow-hidden rounded-lg md:rounded-xl bg-gray-900 aspect-video group w-full"
                   >
-                    <iframe
-                      src={item.image}
-                      title={item.title}
-                      className="w-full h-full border-0 transform "
+                    <img
+                      src={item.screenshot}
+                      alt={item.title}
+                      className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 t">
-                      <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-8">
-                        <div className="transform translate-y-4 ">
-                          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                            <span className="text-white/90">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/90 group-hover:via-black/60 transition-all duration-300">
+                      <div className="absolute inset-0 flex flex-col justify-end p-2 sm:p-4 md:p-8">
+                        <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          <div className="flex items-center gap-1 sm:gap-2 md:gap-3 mb-1 sm:mb-2 md:mb-3">
+                            <span className="text-white/90 group-hover:text-white transition-colors w-4 h-4 sm:w-5 sm:h-5">
                               {getIcon(item.icon)}
                             </span>
-                            <h3 className="text-lg md:text-2xl font-semibold text-white">
+                            <h3 className="text-sm sm:text-lg md:text-2xl font-semibold text-white group-hover:text-white/90 transition-colors truncate">
                               {item.title}
                             </h3>
                           </div>
-                          <p className="text-white/80 text-sm md:text-lg mb-3 md:mb-4  ">
+                          <p className="text-white/80 text-[10px] sm:text-sm md:text-lg mb-1 sm:mb-3 md:mb-4 group-hover:text-white/90 transition-colors line-clamp-2 sm:line-clamp-none">
                             {item.description}
                           </p>
-                          <div className="flex flex-wrap gap-1.5 md:gap-2">
+                          <div className="flex flex-wrap gap-0.5 sm:gap-1.5 md:gap-2 max-w-full overflow-hidden">
                             {item.tags.map(tag => (
                               <span
                                 key={tag}
-                                className="px-2 md:px-3 py-0.5 md:py-1 text-xs md:text-sm font-medium text-white/90 bg-white/10 rounded-full"
+                                className="inline-flex items-center px-0.5 sm:px-2 md:px-3 py-[1px] sm:py-0.5 text-[7px] sm:text-xs md:text-sm font-medium text-white/90 bg-white/10 rounded-full group-hover:bg-white/20 transition-colors whitespace-nowrap leading-none"
                               >
                                 {tag}
                               </span>
@@ -224,21 +224,21 @@ const PreviousWork: React.FC = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handlePrev}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            className="absolute left-0 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
           >
-            <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
+            <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6" />
           </motion.button>
 
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleNext}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            className="absolute right-0 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
           >
-            <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
+            <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6" />
           </motion.button>
 
-          <div className="flex justify-center mt-4 md:mt-8 gap-1.5 md:gap-2">
+          <div className="flex justify-center mt-2 sm:mt-4 md:mt-8 gap-1 sm:gap-1.5 md:gap-2">
             {workItems.map((_, index) => (
               <motion.button
                 key={index}
@@ -249,8 +249,8 @@ const PreviousWork: React.FC = () => {
                     transition: { type: "spring", stiffness: 300, damping: 30 }
                   });
                 }}
-                className={`w-1.5 md:w-2 h-1.5 md:h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? 'w-6 md:w-8 bg-white' : 'bg-white/30'
+                className={`w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2.5 md:h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentIndex ? 'w-3 sm:w-4 md:w-6 bg-white' : 'bg-white/30'
                 }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.8 }}
