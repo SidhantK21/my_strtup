@@ -169,7 +169,7 @@ export const Pricing = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
         <PricingCard
           title="Standard"
-          price="$110"
+          price="$70"
           features={[
             "Custom Designing",
             "1 time free design revision",
@@ -181,7 +181,7 @@ export const Pricing = () => {
         />
         <PricingCard
           title="Enterprise"
-          price="$300"
+          price="$200"
           features={[
             "Design revisions 2 times",
             "SEO optimization",
